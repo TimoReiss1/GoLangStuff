@@ -1,41 +1,41 @@
 package main
 
 import (
-	"fmt"
-	"io"
-	"os"
-	"io/ioutil"
 	"log"
 	"net/http"
-	"C:\Users\ReissT\.vscode\working\.vscode\working\handlers"
+	"os"
 )
 
 func main() {
 	// Hello world, the web server
-/*
-	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		log.Println("Hello World!")
-		d, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			http.Error(rw, "Oops", http.StatusBadRequest)
-			return
+	/*
+		http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
+			log.Println("Hello World!")
+			d, err := ioutil.ReadAll(r.Body)
+			if err != nil {
+				http.Error(rw, "Oops", http.StatusBadRequest)
+				return
+			}
+			fmt.Fprintf(rw, "Hello %s\n", d)
+		})
+
+		helloHandler := func(w http.ResponseWriter, req *http.Request) {
+			io.WriteString(w, "Hello, world!\n")
 		}
-		fmt.Fprintf(rw, "Hello %s\n", d)
-	})
+		http.HandleFunc("/hello", helloHandler)
 
-	helloHandler := func(w http.ResponseWriter, req *http.Request) {
-		io.WriteString(w, "Hello, world!\n")
-	}
-	http.HandleFunc("/hello", helloHandler)
-
-	goodbyeHandler := func(w http.ResponseWriter, req *http.Request) {
-		io.WriteString(w, "Bye World!\n")
-	}
-	http.HandleFunc("/bye", goodbyeHandler)
+		goodbyeHandler := func(w http.ResponseWriter, req *http.Request) {
+			io.WriteString(w, "Bye World!\n")
+		}
+		http.HandleFunc("/bye", goodbyeHandler)
 	*/
 
-	l := log.New(os.Stdout, "")
-	hh := handlers.newHello()
+	l := log.New(os.Stdout, "product-api", log.LstdFlags)
+	hh := handlers.NewHello
+
+	sm := http.NewServeMux()
+	sm.Handle("/", hh)
+
 	log.Println("Listing for requests at http://localhost:8000/hello")
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
